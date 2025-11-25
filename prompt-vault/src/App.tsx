@@ -208,7 +208,7 @@ function App() {
                     <div className="flex gap-3">
                         <button
                             onClick={() => setIsCreating(true)}
-                            className="bg-cyan-500 hover:bg-cyan-400 text-white px-6 py-3 rounded-full font-semibold transition-all flex items-center space-x-2 shadow-lg shadow-cyan-500/20 hover:scale-105 active:scale-95"
+                            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-6 py-3 rounded-full font-semibold transition-all flex items-center space-x-2 shadow-lg shadow-cyan-500/20 hover:scale-105 active:scale-95"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" /></svg>
                             <span>New Persona</span>
@@ -221,9 +221,9 @@ function App() {
                     {/* Search */}
                     <div className="max-w-3xl mx-auto relative group z-30">
                         <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 blur"></div>
-                        <div className="relative bg-[#0a192f]/90 backdrop-blur-xl rounded-full flex items-center shadow-2xl">
+                        <div className="relative bg-[#0a192f]/80 backdrop-blur-xl rounded-full flex items-center shadow-2xl border border-white/10">
                             <div className="pl-6 pointer-events-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-slate-400 group-focus-within:text-cyan-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                             </div>
                             <input
                                 type="text"
