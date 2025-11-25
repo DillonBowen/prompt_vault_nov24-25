@@ -138,21 +138,16 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ prompt, onClose })
 
                 {/* Messages Area */}
                 <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar bg-gradient-to-b from-transparent to-black/20">
-                    {messages.map((msg) => (
+                    {messages.filter(msg => msg.role !== 'system').map((msg) => (
                         <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2 duration-300`}>
                             <div className={`max-w-[80%] rounded-2xl p-4 shadow-lg ${msg.role === 'user'
                                 ? 'bg-gradient-to-br from-cyan-600 to-blue-600 text-white rounded-tr-none'
-                                : msg.role === 'system'
-                                    ? 'bg-yellow-500/5 border border-yellow-500/10 text-yellow-200/60 text-xs font-mono w-full max-w-full text-center py-2'
-                                    : 'bg-white/10 border border-white/5 text-slate-100 rounded-tl-none backdrop-blur-sm'
+                                : 'bg-white/10 border border-white/5 text-slate-100 rounded-tl-none backdrop-blur-sm'
                                 }`}>
-                                {msg.role === 'system' && <span className="uppercase tracking-widest opacity-50 mr-2">System Instruction</span>}
                                 <div className="whitespace-pre-wrap leading-relaxed">{msg.content}</div>
-                                {msg.role !== 'system' && (
-                                    <div className={`text-[10px] mt-2 opacity-40 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
-                                        {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                    </div>
-                                )}
+                                <div className={`text-[10px] mt-2 opacity-40 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
+                                    {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </div>
                             </div>
                         </div>
                     ))}

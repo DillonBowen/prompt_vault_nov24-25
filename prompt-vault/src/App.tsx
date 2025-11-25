@@ -3,6 +3,7 @@ import { Prompt } from './types/prompt';
 import { ChatInterface } from './components/ChatInterface';
 import { PromptEditor } from './components/PromptEditor';
 import { PromptCard } from './components/PromptCard';
+import { ProfileModal } from './components/ProfileModal';
 
 // --- Main App Component ---
 function App() {
@@ -38,6 +39,10 @@ function App() {
         };
         loadData();
     }, []);
+
+    // User State
+    const [userRole, setUserRole] = useState<'admin' | 'user'>('user');
+    const [showProfile, setShowProfile] = useState(false);
 
     // --- Actions ---
 
@@ -205,13 +210,26 @@ function App() {
                             Unlock the power of AI with expert personas.
                         </p>
                     </div>
-                    <div className="flex gap-3">
+                    <div className="flex gap-3 items-center">
+                        {userRole === 'admin' && (
+                            <button
+                                onClick={() => setIsCreating(true)}
+                                className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-6 py-3 rounded-full font-semibold transition-all flex items-center space-x-2 shadow-lg shadow-cyan-500/20 hover:scale-105 active:scale-95"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" /></svg>
+                                <span>New Persona</span>
+                            </button>
+                        )}
+
+                        {/* Profile Button */}
                         <button
-                            onClick={() => setIsCreating(true)}
-                            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-6 py-3 rounded-full font-semibold transition-all flex items-center space-x-2 shadow-lg shadow-cyan-500/20 hover:scale-105 active:scale-95"
+                            onClick={() => setShowProfile(true)}
+                            className={`flex items-center gap-2 px-4 py-2 rounded-full border transition-all ${userRole === 'admin' ? 'bg-amber-500/10 border-amber-500/30 text-amber-200 hover:bg-amber-500/20' : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10'}`}
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" /></svg>
-                            <span>New Persona</span>
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${userRole === 'admin' ? 'bg-amber-500 text-black' : 'bg-cyan-600 text-white'}`}>
+                                {userRole === 'admin' ? 'A' : 'U'}
+                            </div>
+                            <span className="hidden sm:inline font-medium">{userRole === 'admin' ? 'Admin' : 'User'}</span>
                         </button>
                     </div>
                 </header>
@@ -306,6 +324,7 @@ function App() {
                                         onToggleFavorite={handleToggleFavorite}
                                         onDelete={handleDeletePrompt}
                                         onEdit={setEditingPrompt}
+                                        userRole={userRole}
                                     />
                                 ))}
                             </div>
@@ -342,6 +361,17 @@ function App() {
                     onClose={() => { setIsCreating(false); setEditingPrompt(null); }}
                 />
             )}
+
+            <ProfileModal
+                isOpen={showProfile}
+                onClose={() => setShowProfile(false)}
+                role={userRole}
+                onSwitchRole={setUserRole}
+                stats={{
+                    favorites: favorites.size,
+                    usage: Object.values(usageCounts).reduce((a, b) => a + b, 0)
+                }}
+            />
         </div>
     );
 }
