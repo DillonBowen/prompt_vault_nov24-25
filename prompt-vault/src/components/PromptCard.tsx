@@ -8,6 +8,7 @@ interface PromptCardProps {
     onToggleFavorite: (p: Prompt) => void;
     onDelete?: (p: Prompt) => void;
     onEdit?: (p: Prompt) => void;
+    userRole?: string; // Added to resolve TS2322 error
 }
 
 export const PromptCard: React.FC<PromptCardProps> = ({
